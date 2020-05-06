@@ -55,13 +55,13 @@
 						{
 							<div class="xscroll" style="margin-bottom:15px">
 								@if{!s}(page_no > 1)
-									<a href="@pathtopageno(1)#contents"><pagebutton title="f key">first</pagebutton></a> &nbsp;
+									<a href="@pathtopageno(1)#contents"><pagebutton title="first page">first</pagebutton></a> &nbsp;
 								@if{!s}(page_no > 2)
-									<a href="@pathtopageno(@`page_no-1`)#contents"><pagebutton title="left arrow key">prev</pagebutton></a> &nbsp;
+									<a href="@pathtopageno(@`page_no-1`)#contents"><pagebutton title="previous page">prev</pagebutton></a> &nbsp;
 								@if{!s}(page_no+1 < no_paginate_pages)
-									<a href="@pathtopageno(@`page_no+1`)#contents"><pagebutton title="right arrow key">next</pagebutton></a> &nbsp;
+									<a href="@pathtopageno(@`page_no+1`)#contents"><pagebutton title="next page">next</pagebutton></a> &nbsp;
 								@if{!s}(page_no < no_paginate_pages)
-									<a href="@pathtopageno($[no_paginate_pages])#contents"><pagebutton title="l key">last</pagebutton></a>
+									<a href="@pathtopageno($[no_paginate_pages])#contents"><pagebutton title="last page">last</pagebutton></a>
 							</div>
 						}
 					}
