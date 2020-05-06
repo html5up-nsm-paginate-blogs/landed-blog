@@ -1,0 +1,107 @@
+<!-- Main -->
+	<div id="main" class="wrapper style1">
+		<div class="container">
+			<header class="major">
+				<h2>Blog</h2>
+			</header>
+
+			<!-- Text -->
+			<section class="content">
+				<center><h2 id="contents">Contents</h2></center>
+
+				@paginate
+				@paginate.no_items_per_page(5)
+				@paginate.separator("\n")
+				@item
+				{
+					<tr>
+						<td>14/05/2019</td>
+						<td><a href="@pathto(blog/post02)">post 2</a>: A project I recently finished</td>
+					</tr>
+				}
+				@item
+				{
+					<tr>
+						<td>03/02/2019</td>
+						<td><a href="@pathto(blog/post01)">post 1</a>: My first blog post</td>
+					</tr>
+				}
+				@paginate.template
+				{
+					@f++{!o}
+					{
+						if{!s}($[paginate.page_no] == 1)
+						{
+							int no_paginate_pages = $[paginate.no_pages],
+							    page_no = $[paginate.page_no])
+							ofstream ofs("content/blog/pages.select")
+							string buttons
+							write{block, n++}(ofs)
+							{
+								<div class="xscroll">
+									<select id="page_select" style="width:100px" onChange="window.location.href=this.value">
+										<option disabled selected value style="display:none">page</option>
+										@for(int i=1; i <= no_paginate_pages; i+=1)
+											<option value="@pathtopageno($[i])#contents">$[i]</option>
+									</select> &nbsp;&nbsp;
+								</div>
+							}
+							ofs.close()
+						}
+						else
+							exprtk{!o}(page_no := $[paginate.page_no])
+
+						={block, pb, n++}(buttons)
+						{
+							<div class="xscroll" style="margin-bottom:15px">
+								@if{!s}(page_no > 1)
+									<a href="@pathtopageno(1)#contents"><pagebutton title="f key">first</pagebutton></a> &nbsp;
+								@if{!s}(page_no > 2)
+									<a href="@pathtopageno(@`page_no-1`)#contents"><pagebutton title="left arrow key">prev</pagebutton></a> &nbsp;
+								@if{!s}(page_no+1 < no_paginate_pages)
+									<a href="@pathtopageno(@`page_no+1`)#contents"><pagebutton title="right arrow key">next</pagebutton></a> &nbsp;
+								@if{!s}(page_no < no_paginate_pages)
+									<a href="@pathtopageno($[no_paginate_pages])#contents"><pagebutton title="l key">last</pagebutton></a>
+							</div>
+						}
+					}
+
+					<center>
+						@input(content/blog/pages.select)
+
+						<noselect>
+							$[buttons]
+						</noselect>
+					</center>
+
+					<div class="xscroll">
+						<table id="posts_table">
+							<thead>
+								<tr>
+									<th>Date</th>
+									<th>Title</th>
+								</tr>
+							</thead>
+							$[paginate.page]
+							<tfoot>
+								<tr>
+									<th>Date</th>
+									<th>Title</th>
+								</tr>
+							</tfoot>
+						</table>
+					</div>
+
+					<center>
+						<noselect>
+							$[buttons]
+						</noselect>
+
+						@input(content/blog/pages.select)
+					</center>
+				}
+
+				<noselect><br><br></noselect>
+			</section>
+		</div>
+	</div>

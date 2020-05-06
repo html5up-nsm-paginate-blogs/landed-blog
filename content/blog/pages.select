@@ -1,0 +1,6 @@
+<div class="xscroll">
+	<select id="page_select" style="width:100px" onChange="window.location.href=this.value">
+		<option disabled selected value style="display:none">page</option>
+		<option value="index.html#contents">1</option>
+	</select> &nbsp;&nbsp;
+</div>
